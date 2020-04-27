@@ -1,0 +1,33 @@
+type Comment {
+	_id: ID!
+	idCreator: ID!
+	description: String
+	likes: [String]
+}
+
+type Post {
+	_id: ID!
+	idCreator: ID!
+	description: String
+	thumbnails: [String]
+	likes: [String]
+	comment: [Comment]
+	createdAt: Float!
+}
+
+input CreatePostInput {
+	description: String
+	thumbnails: [String]
+}
+
+type Query {
+	posts: Post
+}
+
+type Mutation {
+	createPost(input: CreatePostInput): Post
+}
+
+type Subscription {
+	newPost: Post
+}
