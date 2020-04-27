@@ -1,5 +1,5 @@
 import { generateToken } from './../auth/jwt/index';
-import { CreateUserInput, LoginRequest, LoginResponse } from './../generator/graphql.schema';
+import { CreateUserInput, LoginRequest, LoginResponse, UpdateUserInput } from './../generator/graphql.schema';
 import {
 	Resolver,
 	Query,
@@ -26,6 +26,15 @@ export class UserResolver {
 	@Query()
 	async hello(): Promise<string> {
 		return '1234'
+	}
+
+	@Query()
+	async users(): Promise<UserEntity[]> {
+		try {
+			return await getMongoRepository(UserEntity).find()
+		} catch (error) {
+			throw new ApolloError(error)
+		}
 	}
 
 	@Mutation()
@@ -63,17 +72,27 @@ export class UserResolver {
 			const existedUser = await getMongoRepository(UserEntity).findOne({
 				username
 			})
-			if (!existedUser || (await existedUser.matchesPassword(password))) {
+
+			if (!existedUser || !(await existedUser.matchesPassword(password))) {
 				throw new ApolloError('Incorrect username or password')
 			}
-
-			console.log(existedUser)
 
 			const token = await generateToken(existedUser)
 
 			return {
 				token
 			}
+		} catch (error) {
+			throw new ApolloError(error)
+		}
+	}
+
+	@Mutation()
+	async updateUser(input: UpdateUserInput): Promise<UserEntity> {
+		try {
+			const { username, password, role, gender, fullName } = input
+
+			return
 		} catch (error) {
 			throw new ApolloError(error)
 		}

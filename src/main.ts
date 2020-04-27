@@ -26,8 +26,8 @@ async function bootstrap() {
     });
 
     const { isConnected } = getConnection('default')
-    isConnected ? Logger.log('Database connect', 'TypeORM', false)
-      : Logger.error('Database connect error', '', 'TypeORM', false)
+    isConnected ? Logger.log('Database connected', 'TypeORM', false)
+      : Logger.error('Connect to database error', '', 'TypeORM', false)
 
     app.use(helmet())
 

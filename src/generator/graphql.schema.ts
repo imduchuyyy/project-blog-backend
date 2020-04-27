@@ -36,6 +36,14 @@ export class LoginRequest {
     password?: string;
 }
 
+export class UpdateUserInput {
+    username?: string;
+    password?: string;
+    gender?: string;
+    role?: string;
+    fullName?: string;
+}
+
 export class Comment {
     _id: string;
     idCreator: string;
@@ -58,7 +66,7 @@ export abstract class IQuery {
 
     abstract hello(): string | Promise<string>;
 
-    abstract users(): User | Promise<User>;
+    abstract users(): User[] | Promise<User[]>;
 }
 
 export abstract class IMutation {
@@ -67,6 +75,12 @@ export abstract class IMutation {
     abstract createUser(input?: CreateUserInput): User | Promise<User>;
 
     abstract login(input?: LoginRequest): LoginResponse | Promise<LoginResponse>;
+
+    abstract updateUser(input?: UpdateUserInput): User | Promise<User>;
+
+    abstract deleteAllMember(): boolean | Promise<boolean>;
+
+    abstract deleteAllAdmin(): boolean | Promise<boolean>;
 }
 
 export abstract class ISubscription {
@@ -78,8 +92,8 @@ export class User {
     fullName: string;
     username: string;
     password: string;
-    role?: Role;
-    avatar?: string;
+    role: Role;
+    avatar: string;
     gender: Gender;
     isOnline: boolean;
     createdAt: number;

@@ -15,8 +15,8 @@ type User {
 	fullName: String!
 	username: String!
 	password: String!
-	role: Role
-	avatar: String
+	role: Role!
+	avatar: String!
 	gender: Gender!
 	isOnline: Boolean!
 	createdAt: Float!
@@ -35,9 +35,17 @@ input LoginRequest {
 	password: String
 }
 
+input UpdateUserInput {
+	username: String
+	password: String
+	gender: String
+	role: String
+	fullName: String
+}
+
 type Query {
 	hello: String
-	users: User
+	users: [User] @checkRoles(roles: ["ADMIN", "SUPERADMIN"])
 }
 
 type LoginResponse {
@@ -47,4 +55,7 @@ type LoginResponse {
 type Mutation {
 	createUser(input: CreateUserInput): User
 	login(input: LoginRequest): LoginResponse
+	updateUser(input: UpdateUserInput): User @isAuthenticated
+	deleteAllMember: Boolean @checkRoles(roles: ["ADMIN", "SUPERADMIN"])
+	deleteAllAdmin: Boolean @checkRoles(roles: ["SUPERADMIN"])
 }

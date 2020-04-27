@@ -51,8 +51,6 @@ export class GraphqlService implements GqlOptionsFactory {
         }
         let currentUser
 
-        // console.log(ACCESS_TOKEN, req.headers)
-
         const token = req.headers[ACCESS_TOKEN!] || ''
 
         if (token) {

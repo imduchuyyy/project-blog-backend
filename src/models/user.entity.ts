@@ -1,7 +1,7 @@
-import { Entity, ObjectIdColumn, Column } from 'typeorm'
+import { Entity, ObjectIdColumn, Column, BeforeInsert } from 'typeorm'
 import * as uuid from 'uuid'
 import * as bcrypt from 'bcrypt'
-import { Exclude, Expose, plainToClass } from 'class-transformer'
+import { Expose, plainToClass } from 'class-transformer'
 import { Gender, Role } from './../generator/graphql.schema'
 
 @Entity({
@@ -55,9 +55,13 @@ export class UserEntity {
 			this._id = this._id || uuid.v1()
 			this.isOnline = this.isOnline !== undefined ? this.isOnline : false
 			this.createdAt = this.createdAt || +new Date()
-			this.password = bcrypt.hash(this.password, 10)
 			this.avatar = 'https://i.stack.imgur.com/l60Hf.png'
 		}
+	}
+
+	@BeforeInsert()
+	async hashPassword() {
+		this.password = await bcrypt.hash(this.password, 10)
 	}
 
 	async matchesPassword(password) {

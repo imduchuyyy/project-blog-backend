@@ -17,7 +17,7 @@ export const generateToken = async (user: UserEntity): Promise<string> => {
 export const verifyToken = async (token: string): Promise<UserEntity> => {
 	let currentUser
 
-	await verify(token, async (err, data) => {
+	await verify(token, SECRET_KEY_TOKEN, async (err, data) => {
 		if (err) {
 			throw new AuthenticationError(
 				'Authentication token is invalid, please try again.'

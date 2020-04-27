@@ -1,5 +1,5 @@
 directive @isAuthenticated on FIELD | FIELD_DEFINITION
-directive @checkRoles(permission: String) on FIELD | FIELD_DEFINITION
+directive @checkRoles(roles: [String]) on FIELD | FIELD_DEFINITION
 
 schema {
 	query: Query
