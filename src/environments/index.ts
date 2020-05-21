@@ -24,7 +24,7 @@ const MONGO_DB: string = process.env.MONGO_DB || 'duchuy'
 const SECRET_KEY_TOKEN: string = process.env.SECRET_KEY_TOKEN || 'duchuy'
 
 //jsonwebtoken
-const ACCESS_TOKEN: string = process.env.ACCESS_TOKEN || 'token'
+const ACCESS_TOKEN: string = process.env.ACCESS_TOKEN || 'access-token'
 
 export {
   PORT,

@@ -71,7 +71,7 @@ export class GraphqlService implements GqlOptionsFactory {
           Logger.debug(`🔗  Connected to websocket`, 'GraphQL')
           let currentUser
 
-          const token = connectionParams[ACCESS_TOKEN!]
+          const token = connectionParams[ACCESS_TOKEN!] || ''
           if (token) {
             currentUser = await verifyToken(token)
 
@@ -86,27 +86,26 @@ export class GraphqlService implements GqlOptionsFactory {
             )
 
             return { currentUser }
-          }
-
-          throw new AuthenticationError(
-            'Authentication token is invalid, please try again.'
-          )
+          } 
+          return false
         },
         onDisconnect: async (webSocket, context) => {
           Logger.error(`❌  Disconnected to websocket`, '', 'GraphQL', false)
 
           const { initPromise } = context
-          const { currentUser } = await initPromise
+          const { currentUser } = await initPromise || []
 
-          await getMongoRepository(UserEntity).updateOne(
-            { _id: currentUser._id },
-            {
-              $set: { isOnline: false }
-            },
-            {
-              upsert: true
-            }
-          )
+          if (currentUser) {
+            await getMongoRepository(UserEntity).updateOne(
+              { _id: currentUser._id },
+              {
+                $set: { isOnline: false }
+              },
+              {
+                upsert: true
+              }
+            ) 
+          }
         }
       }
     }
