@@ -44,6 +44,19 @@ export class UpdateUserInput {
     fullName?: string;
 }
 
+export class DashboardData {
+    numberOfUsers?: number;
+    numberOfPosts?: number;
+    users?: User[];
+    posts?: Post[];
+}
+
+export abstract class ISubscription {
+    abstract dashboardUpdated(): DashboardData | Promise<DashboardData>;
+
+    abstract newPost(): Post | Promise<Post>;
+}
+
 export class Comment {
     _id: string;
     idCreator: string;
@@ -81,10 +94,6 @@ export abstract class IMutation {
     abstract deleteAllMember(): boolean | Promise<boolean>;
 
     abstract deleteAllAdmin(): boolean | Promise<boolean>;
-}
-
-export abstract class ISubscription {
-    abstract newPost(): Post | Promise<Post>;
 }
 
 export class User {
