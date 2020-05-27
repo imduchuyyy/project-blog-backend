@@ -3,6 +3,8 @@
 /node_modules
 /uploads
 /photos
+graphql.schema.ts
+package-lock.json
 
 # Logs
 logs

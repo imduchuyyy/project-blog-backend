@@ -1,3 +1,4 @@
+import { DashboardService } from './service/dashboard.service';
 import { generateToken } from './../auth/jwt/index';
 import { CreateUserInput, LoginRequest, LoginResponse, UpdateUserInput } from './../generator/graphql.schema';
 import {
@@ -23,6 +24,9 @@ import { UserEntity } from '@models';
 
 @Resolver()
 export class UserResolver {
+
+	constructor(private readonly dashboardService: DashboardService) { }
+
 	@Query()
 	async hello(): Promise<string> {
 		return '1234'
@@ -38,7 +42,7 @@ export class UserResolver {
 	}
 
 	@Mutation()
-	async createUser(@Args('input') input: CreateUserInput): Promise<UserEntity> {
+	async createUser(@Args('input') input: CreateUserInput, @Context('pubsub') pubsub): Promise<UserEntity> {
 		try {
 			const { username, role, gender } = input
 
@@ -56,6 +60,8 @@ export class UserResolver {
 					gender: Gender[gender]
 				})
 			)
+
+			await this.dashboardService.dashboardUpdated(pubsub)
 
 			return newUser
 

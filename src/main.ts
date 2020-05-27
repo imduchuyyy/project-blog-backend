@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common'
 import { NestExpressApplication } from '@nestjs/platform-express'
-import { MyLogger } from '@config'
+import { MyLogger, LoggingInterceptor } from '@config'
 import { getConnection } from 'typeorm'
 import * as helmet from 'helmet'
 import * as rateLimit from 'express-rate-limit'
@@ -22,7 +22,7 @@ declare const module: any
 async function bootstrap() {
   try {
     const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-      // logger: new MyLogger()
+      logger: new MyLogger()
     });
 
     const { isConnected } = getConnection('default')
@@ -41,8 +41,7 @@ async function bootstrap() {
     )
 
     app.enableShutdownHooks()
-
-    // app.use(MyLogger)
+    app.useGlobalInterceptors(new LoggingInterceptor())
 
     const server = await app.listen(PORT);
 

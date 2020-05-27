@@ -1,10 +1,7 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScheduleModule } from '@nestjs/schedule';
-import { resolve, join } from 'path';
 
 import {
   getMetadataArgsStorage,
@@ -16,6 +13,7 @@ import {
 
 import { GraphqlService, TypeOrmService } from '@config';
 import * as Resolvers from './resolvers'
+import * as Service from './resolvers/service'
 
 @Module({
   imports: [
@@ -36,7 +34,8 @@ import * as Resolvers from './resolvers'
   ],
   controllers: [],
   providers: [
-    ...Object.values(Resolvers)
+    ...Object.values(Resolvers),
+    ...Object.values(Service)
   ],
 })
 export class AppModule { }

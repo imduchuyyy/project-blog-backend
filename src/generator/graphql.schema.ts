@@ -83,7 +83,7 @@ export abstract class IQuery {
 }
 
 export abstract class IMutation {
-    abstract createPost(input?: CreatePostInput): Post | Promise<Post>;
+    abstract createNewPost(input?: CreatePostInput): Post | Promise<Post>;
 
     abstract createUser(input?: CreateUserInput): User | Promise<User>;
 
