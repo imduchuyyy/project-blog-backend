@@ -3,6 +3,7 @@
 /node_modules
 /uploads
 /photos
+# other
 graphql.schema.ts
 package-lock.json
 

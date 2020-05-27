@@ -24,12 +24,11 @@ import { UserEntity } from '@models';
 
 @Resolver()
 export class UserResolver {
-
 	constructor(private readonly dashboardService: DashboardService) { }
 
 	@Query()
 	async hello(): Promise<string> {
-		return '1234'
+		return 'hellsdng'
 	}
 
 	@Query()

@@ -2,7 +2,7 @@
 	"name": "codebasebackend",
 	"version": "0.0.1",
 	"description": "",
-	"author": "",
+	"author": "Bùi Đức Huy",
 	"license": "MIT",
 	"scripts": {
 		"prebuild": "rimraf dist",
@@ -18,7 +18,7 @@
 		"test:watch": "jest --watch",
 		"test:cov": "jest --coverage",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-		"webpack": "rimraf dist && webpack --config webpack.config.js ",
+		"webpack": "webpack --config webpack.config.js ",
 		"start:hmr": "node dist/main.js",
 		"test:e2e": "jest --config ./test/jest-e2e.json"
 	},

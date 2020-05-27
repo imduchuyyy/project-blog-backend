@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, CacheModule } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -11,7 +11,7 @@ import {
   MLAB_URL,
 } from '@environments'
 
-import { GraphqlService, TypeOrmService } from '@config';
+import { GraphqlService, TypeOrmService, CacheService } from '@config';
 import * as Resolvers from './resolvers'
 import * as Service from './resolvers/service'
 
@@ -20,6 +20,9 @@ import * as Service from './resolvers/service'
     ScheduleModule.forRoot(),
     GraphQLModule.forRootAsync({
       useClass: GraphqlService
+    }),
+    CacheModule.registerAsync({
+      useClass: CacheService
     }),
     TypeOrmModule.forRoot({
       type: 'mongodb',

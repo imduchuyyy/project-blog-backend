@@ -3,6 +3,7 @@ import {
 	Subscription,
 	Context,
 } from '@nestjs/graphql'
+import { ApolloError } from 'apollo-server-express'
 
 @Resolver()
 export class DashboardResolver {
@@ -12,6 +13,9 @@ export class DashboardResolver {
 		}
 	})
 	dashboardUpdate(@Context('pubsub') pubsub) {
+		if (!pubsub) {
+			throw new ApolloError('Error pubsub')
+		}
 		return pubsub.asyncIterator('dashboardUpdated')
 	}
 }
