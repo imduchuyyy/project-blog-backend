@@ -22,7 +22,7 @@ declare const module: any
 async function bootstrap() {
   try {
     const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-      logger: new MyLogger()
+      // logger: new MyLogger()
     });
 
     const { isConnected } = getConnection('default')
@@ -46,8 +46,8 @@ async function bootstrap() {
     const server = await app.listen(PORT);
 
     if (module.hot) {
-      module.hot.accept();
-      module.hot.dispose(() => app.close());
+      module.hot.accept()
+      module.hot.dispose(() => app.close())
     }
 
     NODE_ENV !== 'production'

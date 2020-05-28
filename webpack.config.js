@@ -64,6 +64,6 @@ module.exports = {
   output: {
     pathinfo: false
     // path: path.join(__dirname, 'dist'),
-    // filename: 'server.js',
+    // filename: 'main.js',
   },
 };

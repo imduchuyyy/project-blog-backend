@@ -3,6 +3,7 @@ import { GqlOptionsFactory, GqlModuleOptions } from "@nestjs/graphql";
 import { AuthenticationError, ForbiddenError } from 'apollo-server-core'
 import { PubSub } from 'graphql-subscriptions'
 import { getMongoRepository } from 'typeorm'
+import { MemcachedCache } from 'apollo-server-cache-memcached'
 
 import { UserEntity } from '@models'
 import schemaDirectives from './schemaDerectives'
@@ -17,7 +18,7 @@ export class GraphqlService implements GqlOptionsFactory {
     return {
       typePaths: ['./**/*.graphql'],
       playground: true,
-      debug: true,
+      // debug: true,
       schemaDirectives,
       formatError: err => {
         return {
@@ -27,6 +28,23 @@ export class GraphqlService implements GqlOptionsFactory {
           path: err.path
         }
       },
+      tracing: true,
+      persistedQueries: {
+				cache: new MemcachedCache(
+					['memcached-server-1', 'memcached-server-2', 'memcached-server-3'],
+					{ retries: 10, retry: 10000 } // Options
+				)
+			},
+      onHealthCheck: () => {
+				return new Promise((resolve, reject) => {
+					// Replace the `true` in this conditional with more specific checks!
+					if (true) {
+						resolve()
+					} else {
+						reject()
+					}
+				})
+			},
       formatResponse: res => {
         return res
       },

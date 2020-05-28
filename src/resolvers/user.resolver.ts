@@ -22,13 +22,14 @@ import * as uuid from 'uuid'
 import { Gender, Role } from './../generator/graphql.schema'
 import { UserEntity } from '@models';
 
-@Resolver()
+@Resolver('User')
 export class UserResolver {
 	constructor(private readonly dashboardService: DashboardService) { }
 
 	@Query()
 	async hello(): Promise<string> {
-		return 'hellsdng'
+		console.log('345')
+		return 'hello world sfan'
 	}
 
 	@Query()

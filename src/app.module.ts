@@ -17,7 +17,7 @@ import * as Service from './resolvers/service'
 
 @Module({
   imports: [
-    ScheduleModule.forRoot(),
+    // ScheduleModule.forRoot(),
     GraphQLModule.forRootAsync({
       useClass: GraphqlService
     }),
