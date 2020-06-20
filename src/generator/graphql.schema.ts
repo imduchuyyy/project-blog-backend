@@ -15,7 +15,7 @@ export enum Gender {
 export enum Role {
     SUPERADMIN = "SUPERADMIN",
     ADMIN = "ADMIN",
-    MENBER = "MENBER"
+    MEMBER = "MEMBER"
 }
 
 export class PostInput {

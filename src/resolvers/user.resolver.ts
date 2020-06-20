@@ -33,9 +33,13 @@ export class UserResolver {
 	}
 
 	@Mutation()
-	async createUser(@Args('input') input: CreateUserInput, @Context('pubsub') pubsub): Promise<UserEntity> {
+	async createUser(@Args('input') input: CreateUserInput, @Context('pubsub') pubsub, @Context('currentUser') currentUser: UserEntity): Promise<UserEntity> {
 		try {
 			const { username, role, gender } = input
+
+			if ((role === 'ADMIN' || role === 'SUPERADMIN') && (!currentUser || currentUser.role !== 'SUPERADMIN')) {
+				throw new ApolloError('You dont have permission', '403')
+			}
 
 			const existedUser = await getMongoRepository(UserEntity).findOne({
 				username: username

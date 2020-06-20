@@ -7,7 +7,7 @@ enum Gender {
 enum Role {
 	SUPERADMIN
 	ADMIN
-	MENBER
+	MEMBER
 }
 
 type User {
