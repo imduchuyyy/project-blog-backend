@@ -1,4 +1,4 @@
-# Project blog frontend
+# Project blog backend
 
 ## Setting:
 
