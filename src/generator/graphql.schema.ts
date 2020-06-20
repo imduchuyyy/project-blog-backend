@@ -44,7 +44,6 @@ export class UpdateUserInput {
     username?: string;
     password?: string;
     gender?: string;
-    role?: string;
     fullName?: string;
 }
 

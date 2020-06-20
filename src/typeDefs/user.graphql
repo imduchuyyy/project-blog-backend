@@ -39,7 +39,6 @@ input UpdateUserInput {
 	username: String
 	password: String
 	gender: String
-	role: String
 	fullName: String
 }
 
