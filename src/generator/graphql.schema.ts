@@ -52,7 +52,6 @@ export class DashboardData {
     numberOfUsers?: number;
     numberOfPosts?: number;
     postsInWeek?: number[];
-    usersInWeek?: number[];
     topUser?: User;
     topPost?: Post;
 }
