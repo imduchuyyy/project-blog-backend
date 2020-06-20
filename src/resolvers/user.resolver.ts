@@ -93,14 +93,6 @@ export class UserResolver {
 		try {
 			const { _id } = currentUser
 
-			const existedUser = await getMongoRepository(UserEntity).findOne({
-				_id
-			})
-
-			if (!existedUser) {
-				throw new ApolloError('Not found: User', '409')
-			}
-
 			await getMongoRepository(UserEntity).updateOne(
 				{
 					_id
