@@ -37,7 +37,7 @@ export class UserResolver {
 		try {
 			const { username, role, gender } = input
 
-			if ((role === 'ADMIN' || role === 'SUPERADMIN') && (!currentUser || currentUser.role !== 'SUPERADMIN')) {
+			if ((role !== 'MEMBER') && (!currentUser || currentUser.role !== 'SUPERADMIN')) {
 				throw new ApolloError('You dont have permission', '403')
 			}
 
