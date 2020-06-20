@@ -18,9 +18,13 @@ export enum Role {
     MENBER = "MENBER"
 }
 
-export class CreatePostInput {
+export class PostInput {
     description?: string;
     thumbnails?: string[];
+}
+
+export class CommentInput {
+    description?: string;
 }
 
 export class CreateUserInput {
@@ -47,43 +51,63 @@ export class UpdateUserInput {
 export class DashboardData {
     numberOfUsers?: number;
     numberOfPosts?: number;
-    users?: User[];
-    posts?: Post[];
+    postsInWeek?: number[];
+    usersInWeek?: number[];
+    topUser?: User;
+    topPost?: Post;
 }
 
 export abstract class ISubscription {
     abstract dashboardUpdated(): DashboardData | Promise<DashboardData>;
-
-    abstract newPost(): Post | Promise<Post>;
 }
 
 export class Comment {
-    _id: string;
-    idCreator: string;
+    _id?: string;
+    idCreator?: string;
     description?: string;
-    likes?: string[];
+    idLikes?: string[];
+    createdAt?: number;
 }
 
 export class Post {
-    _id: string;
-    idCreator: string;
+    _id?: string;
+    idCreator?: string;
+    idComments?: string[];
+    idLikes?: string[];
     description?: string;
     thumbnails?: string[];
-    likes?: string[];
-    comment?: Comment[];
-    createdAt: number;
+    createdAt?: number;
+    creator?: User;
+    liker?: User[];
+    comments?: Comment[];
 }
 
 export abstract class IQuery {
-    abstract posts(): Post | Promise<Post>;
+    abstract getPosts(): Post[] | Promise<Post[]>;
 
     abstract hello(): string | Promise<string>;
 
-    abstract users(): User[] | Promise<User[]>;
+    abstract getUsers(): User[] | Promise<User[]>;
 }
 
 export abstract class IMutation {
-    abstract createNewPost(input?: CreatePostInput): Post | Promise<Post>;
+    abstract createNewPost(input?: PostInput): Post | Promise<Post>;
+
+    abstract deletePost(idPost?: string): boolean | Promise<boolean>;
+
+    abstract deleteAllPost(): boolean | Promise<boolean>;
+
+    abstract updatePost(idPost?: string, input?: PostInput): Post | Promise<Post>;
+
+    abstract toggleLikePost(idPost?: string): boolean | Promise<boolean>;
+
+    abstract commentOnPost(idPost?: string, input?: CommentInput): Comment | Promise<Comment>;
+
+    abstract deleteComment(idPost?: string, idComment?: string): boolean | Promise<boolean>;
+
+    abstract updateComment(idComment?: string, input?: CommentInput): Comment | Promise<Comment>;
+
+    abstract toggleLikeComment(idComment?: string): boolean | Promise<boolean>;
 
     abstract createUser(input?: CreateUserInput): User | Promise<User>;
 
@@ -97,15 +121,15 @@ export abstract class IMutation {
 }
 
 export class User {
-    _id: string;
-    fullName: string;
-    username: string;
-    password: string;
-    role: Role;
-    avatar: string;
-    gender: Gender;
-    isOnline: boolean;
-    createdAt: number;
+    _id?: string;
+    fullName?: string;
+    username?: string;
+    password?: string;
+    role?: Role;
+    avatar?: string;
+    gender?: Gender;
+    isOnline?: boolean;
+    createdAt?: number;
 }
 
 export class LoginResponse {

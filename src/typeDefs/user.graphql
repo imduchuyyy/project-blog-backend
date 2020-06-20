@@ -11,15 +11,15 @@ enum Role {
 }
 
 type User {
-	_id: ID!
-	fullName: String!
-	username: String!
-	password: String!
-	role: Role!
-	avatar: String!
-	gender: Gender!
-	isOnline: Boolean!
-	createdAt: Float!
+	_id: ID
+	fullName: String
+	username: String
+	password: String
+	role: Role
+	avatar: String
+	gender: Gender
+	isOnline: Boolean
+	createdAt: Float
 }
 
 input CreateUserInput {
@@ -43,13 +43,13 @@ input UpdateUserInput {
 	fullName: String
 }
 
-type Query {
-	hello: String
-	users: [User] @checkRoles(roles: ["ADMIN", "SUPERADMIN"])
-}
-
 type LoginResponse {
 	token: String
+}
+
+type Query {
+	hello: String
+	getUsers: [User] @checkRoles(roles: ["ADMIN", "SUPERADMIN"])
 }
 
 type Mutation {

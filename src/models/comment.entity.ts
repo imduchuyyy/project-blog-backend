@@ -3,9 +3,9 @@ import * as uuid from 'uuid'
 import { Expose, plainToClass } from 'class-transformer'
 
 @Entity({
-  name: 'posts'
+  name: 'comments'
 })
-export class PostEntity {
+export class CommentEntity {
   @Expose()
   @ObjectIdColumn()
   _id: string
@@ -20,30 +20,21 @@ export class PostEntity {
 
   @Expose()
   @Column()
-  thumbnails: string[]
-
-  @Expose()
-  @Column()
   idLikes: string[]
-
-  @Expose()
-  @Column()
-  idComments: string[]
 
   @Expose()
   @Column()
   createdAt: number
 
-  constructor(post: Partial<PostEntity>) {
-    if (post) {
+  constructor(comment: Partial<CommentEntity>) {
+    if (comment) {
       Object.assign(
         this,
-        plainToClass(PostEntity, post, {
+        plainToClass(CommentEntity, comment, {
           excludeExtraneousValues: true
         })
       )
       this._id = this._id || uuid.v1()
-      this.idComments = []
       this.idLikes = []
       this.createdAt = this.createdAt || +new Date()
     }

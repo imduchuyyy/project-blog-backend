@@ -1,8 +1,6 @@
 import { Module, CacheModule } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ScheduleModule } from '@nestjs/schedule';
-
 import {
   getMetadataArgsStorage,
 } from 'typeorm'

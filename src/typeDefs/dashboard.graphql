@@ -1,10 +1,11 @@
 type DashboardData {
-    numberOfUsers: Int
-    numberOfPosts: Int
-    users: [User]
-    posts: [Post]
+	numberOfUsers: Int
+	numberOfPosts: Int
+	postsInWeek: [Int]
+	topUser: User
+	topPost: Post
 }
 
 type Subscription {
-    dashboardUpdated: DashboardData @checkRoles(roles: ["ADMIN", "SUPERADMIN"])
+	dashboardUpdated: DashboardData @checkRoles(roles: ["ADMIN", "SUPERADMIN"])
 }

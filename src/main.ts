@@ -31,14 +31,14 @@ async function bootstrap() {
 
     app.use(helmet())
 
-    app.use(
-      rateLimit({
-        windowMs: 1000 * 60 * 60, // an hour
-        max: RATE_LIMIT_MAX!, // limit each IP to 100 requests per windowMs
-        message:
-          '⚠️  Too many request created from this IP, please try again after an hour'
-      })
-    )
+    // app.use(
+    //   rateLimit({
+    //     windowMs: 1000 * 60 * 60, // an hour
+    //     max: RATE_LIMIT_MAX!, // limit each IP to 100 requests per windowMs
+    //     message:
+    //       '⚠️  Too many request created from this IP, please try again after an hour'
+    //   })
+    // )
 
     app.enableShutdownHooks()
     app.useGlobalInterceptors(new LoggingInterceptor())

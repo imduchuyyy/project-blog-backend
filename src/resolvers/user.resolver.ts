@@ -1,25 +1,17 @@
 import { DashboardService } from './service/dashboard.service';
 import { generateToken } from './../auth/jwt/index';
-import { CreateUserInput, LoginRequest, LoginResponse, UpdateUserInput } from './../generator/graphql.schema';
+import { CreateUserInput, LoginRequest, LoginResponse, UpdateUserInput, User, Gender, Role } from './../generator/graphql.schema';
 import {
 	Resolver,
 	Query,
 	Mutation,
 	Args,
-	Subscription,
 	Context,
-	ResolveProperty,
-	Parent
 } from '@nestjs/graphql'
 import { getMongoRepository } from 'typeorm'
 import {
 	ApolloError,
-	AuthenticationError,
-	ForbiddenError,
-	UserInputError
 } from 'apollo-server-core'
-import * as uuid from 'uuid'
-import { Gender, Role } from './../generator/graphql.schema'
 import { UserEntity } from '@models';
 
 @Resolver('User')
@@ -28,14 +20,13 @@ export class UserResolver {
 
 	@Query()
 	async hello(): Promise<string> {
-		console.log('345')
-		return 'hello world sfan'
+		return 'hello world'
 	}
 
 	@Query()
-	async users(): Promise<UserEntity[]> {
+	async getUsers(): Promise<UserEntity[]> {
 		try {
-			return await getMongoRepository(UserEntity).find()
+			return await getMongoRepository(UserEntity).find({})
 		} catch (error) {
 			throw new ApolloError(error)
 		}
@@ -94,11 +85,31 @@ export class UserResolver {
 	}
 
 	@Mutation()
-	async updateUser(input: UpdateUserInput): Promise<UserEntity> {
+	async updateUser(@Context('currentUser') currentUser: UserEntity, @Args('input') input: UpdateUserInput): Promise<User> {
 		try {
-			const { username, password, role, gender, fullName } = input
+			const { _id } = currentUser
 
-			return
+			const existedUser = await getMongoRepository(UserEntity).findOne({
+				_id
+			})
+
+			if (!existedUser) {
+				throw new ApolloError('Not found: User', '409')
+			}
+
+			await getMongoRepository(UserEntity).updateOne(
+				{
+					_id
+				},
+				{
+					$set: {
+						...input
+					}
+				}
+			)
+			return await getMongoRepository(UserEntity).findOne({
+				_id
+			})
 		} catch (error) {
 			throw new ApolloError(error)
 		}

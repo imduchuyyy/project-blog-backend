@@ -1,33 +1,48 @@
 type Comment {
-	_id: ID!
-	idCreator: ID!
+	_id: ID
+	idCreator: ID
 	description: String
-	likes: [String]
+	idLikes: [String]
+	createdAt: Float
 }
 
 type Post {
-	_id: ID!
-	idCreator: ID!
+	_id: ID
+	idCreator: ID
+	idComments: [ID]
+	idLikes: [ID]
 	description: String
 	thumbnails: [String]
-	likes: [String]
-	comment: [Comment]
-	createdAt: Float!
+	createdAt: Float
+
+	#custome fields
+	creator: User
+	liker: [User]
+	comments: [Comment]
 }
 
-input CreatePostInput {
+input PostInput {
 	description: String
 	thumbnails: [String]
+}
+
+input CommentInput {
+	description: String
 }
 
 type Query {
-	posts: Post
+	getPosts: [Post]
 }
 
 type Mutation {
-	createNewPost(input: CreatePostInput): Post
-}
-
-type Subscription {
-	newPost: Post
+	createNewPost(input: PostInput): Post @isAuthenticated
+	deletePost(idPost: String): Boolean @isAuthenticated
+	deleteAllPost: Boolean @checkRoles(roles: ["SUPERADMIN"])
+	updatePost(idPost: String, input: PostInput): Post @isAuthenticated
+	toggleLikePost(idPost: String): Boolean @isAuthenticated
+	commentOnPost(idPost: String, input: CommentInput): Comment @isAuthenticated
+	deleteComment(idPost: String, idComment: String): Boolean @isAuthenticated
+	updateComment(idComment: String, input: CommentInput): Comment
+		@isAuthenticated
+	toggleLikeComment(idComment: String): Boolean @isAuthenticated
 }
