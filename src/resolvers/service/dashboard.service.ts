@@ -34,7 +34,7 @@ export class DashboardService {
       return b?.idLikes.length - a?.idLikes.length
     })[0] : {}
 
-    const today = [moment().subtract(23, 'hours').startOf('days').valueOf(), moment().valueOf()]
+    const today = [moment().startOf('days').valueOf(), moment().valueOf()]
     const last1Day = [moment().subtract(1, 'days').startOf('days').valueOf(), moment().subtract(1, 'days').endOf('days').valueOf()]
     const last2Day = [moment().subtract(2, 'days').startOf('days').valueOf(), moment().subtract(2, 'days').endOf('days').valueOf()]
     const last3Day = [moment().subtract(3, 'days').startOf('days').valueOf(), moment().subtract(3, 'days').endOf('days').valueOf()]

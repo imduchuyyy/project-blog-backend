@@ -6,6 +6,10 @@ type DashboardData {
 	topPost: Post
 }
 
+type Query {
+	dashboardData: DashboardData @checkRoles(roles: ["ADMIN", "SUPERADMIN"])
+}
+
 type Subscription {
 	dashboardUpdated: DashboardData @checkRoles(roles: ["ADMIN", "SUPERADMIN"])
 }

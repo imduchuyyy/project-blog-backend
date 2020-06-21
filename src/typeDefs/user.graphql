@@ -49,6 +49,7 @@ type LoginResponse {
 type Query {
 	hello: String
 	getUsers: [User] @checkRoles(roles: ["ADMIN", "SUPERADMIN"])
+	getCurrentUser: User @isAuthenticated
 }
 
 type Mutation {

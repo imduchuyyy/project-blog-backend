@@ -20,7 +20,7 @@ export class UserResolver {
 
 	@Query()
 	async hello(): Promise<string> {
-		return 'hello world'
+		return 'hello world 123'
 	}
 
 	@Query()
@@ -30,6 +30,11 @@ export class UserResolver {
 		} catch (error) {
 			throw new ApolloError(error)
 		}
+	}
+
+	@Query()
+	async getCurrentUser(@Context('currentUser') currentUser: UserEntity): Promise<User> {
+		return currentUser
 	}
 
 	@Mutation()

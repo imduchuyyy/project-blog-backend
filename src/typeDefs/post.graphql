@@ -12,7 +12,7 @@ type Post {
 	idComments: [ID]
 	idLikes: [ID]
 	description: String
-	thumbnails: [String]
+	thumbnails: String
 	createdAt: Float
 
 	#custome fields
@@ -23,7 +23,7 @@ type Post {
 
 input PostInput {
 	description: String
-	thumbnails: [String]
+	thumbnails: String
 }
 
 input CommentInput {

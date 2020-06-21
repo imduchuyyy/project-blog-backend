@@ -20,7 +20,7 @@ export enum Role {
 
 export class PostInput {
     description?: string;
-    thumbnails?: string[];
+    thumbnails?: string;
 }
 
 export class CommentInput {
@@ -55,6 +55,18 @@ export class DashboardData {
     topPost?: Post;
 }
 
+export abstract class IQuery {
+    abstract dashboardData(): DashboardData | Promise<DashboardData>;
+
+    abstract getPosts(): Post[] | Promise<Post[]>;
+
+    abstract hello(): string | Promise<string>;
+
+    abstract getUsers(): User[] | Promise<User[]>;
+
+    abstract getCurrentUser(): User | Promise<User>;
+}
+
 export abstract class ISubscription {
     abstract dashboardUpdated(): DashboardData | Promise<DashboardData>;
 }
@@ -73,19 +85,11 @@ export class Post {
     idComments?: string[];
     idLikes?: string[];
     description?: string;
-    thumbnails?: string[];
+    thumbnails?: string;
     createdAt?: number;
     creator?: User;
     liker?: User[];
     comments?: Comment[];
-}
-
-export abstract class IQuery {
-    abstract getPosts(): Post[] | Promise<Post[]>;
-
-    abstract hello(): string | Promise<string>;
-
-    abstract getUsers(): User[] | Promise<User[]>;
 }
 
 export abstract class IMutation {

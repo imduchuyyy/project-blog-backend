@@ -20,7 +20,7 @@ export class PostEntity {
 
   @Expose()
   @Column()
-  thumbnails: string[]
+  thumbnails: string
 
   @Expose()
   @Column()

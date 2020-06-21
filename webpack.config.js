@@ -28,7 +28,6 @@ module.exports = {
   resolve: {
     alias: {
       '@auth': path.resolve(__dirname, './src/auth'),
-      '@common': path.resolve(__dirname, './src/common'),
       '@config': path.resolve(__dirname, './src/config'),
       '@environments': path.resolve(__dirname, './src/environments'),
       '@models': path.resolve(__dirname, './src/models'),
