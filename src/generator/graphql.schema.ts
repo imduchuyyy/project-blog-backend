@@ -31,6 +31,7 @@ export class CreateUserInput {
     username?: string;
     password?: string;
     role?: string;
+    email?: string;
     gender?: string;
     fullName?: string;
 }
@@ -43,6 +44,7 @@ export class LoginRequest {
 export class UpdateUserInput {
     username?: string;
     password?: string;
+    email?: string;
     gender?: string;
     fullName?: string;
 }
@@ -128,6 +130,8 @@ export class User {
     username?: string;
     password?: string;
     role?: Role;
+    email?: string;
+    dayOfBirth?: number;
     avatar?: string;
     gender?: Gender;
     isOnline?: boolean;

@@ -16,6 +16,8 @@ type User {
 	username: String
 	password: String
 	role: Role
+	email: String
+	dayOfBirth: Float
 	avatar: String
 	gender: Gender
 	isOnline: Boolean
@@ -26,6 +28,7 @@ input CreateUserInput {
 	username: String
 	password: String
 	role: String
+	email: String
 	gender: String
 	fullName: String
 }
@@ -38,6 +41,7 @@ input LoginRequest {
 input UpdateUserInput {
 	username: String
 	password: String
+	email: String
 	gender: String
 	fullName: String
 }

@@ -20,7 +20,7 @@ export class UserResolver {
 
 	@Query()
 	async hello(): Promise<string> {
-		return 'hello world 123'
+		return 'hello world	'
 	}
 
 	@Query()

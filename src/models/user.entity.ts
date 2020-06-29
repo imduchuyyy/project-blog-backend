@@ -22,6 +22,10 @@ export class UserEntity {
 
 	@Expose()
 	@Column()
+	email: string
+
+	@Expose()
+	@Column()
 	password: string
 
 	@Expose()
@@ -31,6 +35,10 @@ export class UserEntity {
 	@Expose()
 	@Column()
 	avatar: string
+
+	@Expose()
+	@Column()
+	dayOfBirth: number
 
 	@Expose()
 	@Column()
