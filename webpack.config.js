@@ -24,7 +24,7 @@ module.exports = {
       },
     ],
   },
-  mode: 'production',
+  mode: 'development',
   resolve: {
     alias: {
       '@auth': path.resolve(__dirname, './src/auth'),
@@ -61,8 +61,8 @@ module.exports = {
     splitChunks: false
   },
   output: {
-    // pathinfo: false
-    path: path.join(__dirname, 'dist'),
-    filename: 'main.js',
+    pathinfo: false
+    // path: path.join(__dirname, 'dist'),
+    // filename: 'main.js',
   },
 };

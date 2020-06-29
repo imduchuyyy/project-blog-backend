@@ -7,9 +7,9 @@ import {
 
 import {
   MLAB_URL,
-} from './environments'
+} from '@environments'
 
-import { GraphqlService, TypeOrmService, CacheService } from './config';
+import { GraphqlService, TypeOrmService, CacheService } from '@config';
 import * as Resolvers from './resolvers'
 import * as Service from './resolvers/service'
 
