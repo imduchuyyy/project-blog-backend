@@ -48,11 +48,11 @@ module.exports = {
     //   generateStatsFile: false,
     //   statsFilename: 'stats.json'
     // }),
-    new webpack.BannerPlugin({
-      banner: 'require("source-map-support").install();',
-      raw: true,
-      entryOnly: false
-    }),
+    // new webpack.BannerPlugin({
+    //   banner: 'require("source-map-support").install();',
+    //   raw: true,
+    //   entryOnly: false
+    // }),
     new Webpackbar()
   ],
   optimization: {
