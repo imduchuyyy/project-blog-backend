@@ -16,6 +16,7 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:cov": "jest --coverage",
+		"heroku-postbuild": "npm run webpack",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
 		"webpack": "rimraf dist && webpack --config webpack.config.js ",
 		"start:hmr": "node dist/main.js",

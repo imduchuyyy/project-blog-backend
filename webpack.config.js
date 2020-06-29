@@ -8,7 +8,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
 
 module.exports = {
   entry: ['webpack/hot/poll?100', './src/main.ts'],
-  watch: true,
+  // watch: true,
   target: 'node',
   externals: [
     nodeExternals({
@@ -24,7 +24,7 @@ module.exports = {
       },
     ],
   },
-  mode: 'development',
+  mode: 'production',
   resolve: {
     alias: {
       '@auth': path.resolve(__dirname, './src/auth'),
@@ -39,15 +39,15 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.WatchIgnorePlugin([/\.js$/, /\.d\.ts$/]),
     // new StartServerPlugin({ name: 'main.js' }),
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      analyzerHost: '127.0.0.1',
-      analyzerPort: '8888',
-      reportFilename: 'report.html',
-      openAnalyzer: false,
-      generateStatsFile: false,
-      statsFilename: 'stats.json'
-    }),
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'static',
+    //   analyzerHost: '127.0.0.1',
+    //   analyzerPort: '8888',
+    //   reportFilename: 'report.html',
+    //   openAnalyzer: false,
+    //   generateStatsFile: false,
+    //   statsFilename: 'stats.json'
+    // }),
     new webpack.BannerPlugin({
       banner: 'require("source-map-support").install();',
       raw: true,
@@ -56,13 +56,15 @@ module.exports = {
     new Webpackbar()
   ],
   optimization: {
+    moduleIds: 'hashed',
+    runtimeChunk: 'single',
     removeAvailableModules: false,
     removeEmptyChunks: false,
     splitChunks: false
   },
   output: {
-    pathinfo: false
-    // path: path.join(__dirname, 'dist'),
-    // filename: 'main.js',
+    // pathinfo: false
+    path: path.join(__dirname, 'dist'),
+    filename: 'main.js',
   },
 };
