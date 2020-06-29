@@ -56,15 +56,13 @@ module.exports = {
     new Webpackbar()
   ],
   optimization: {
-    moduleIds: 'hashed',
-    runtimeChunk: 'single',
     removeAvailableModules: false,
     removeEmptyChunks: false,
     splitChunks: false
   },
   output: {
-    // pathinfo: false
-    path: path.join(__dirname, 'dist'),
-    filename: 'main.js',
+    pathinfo: false
+    // path: path.join(__dirname, 'dist'),
+    // filename: 'main.js',
   },
 };
