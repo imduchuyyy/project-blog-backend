@@ -12,7 +12,7 @@
 		"start:dev": "nest start --watch",
 		"start:debug": "nest start --debug --watch",
 		"start:prod": "node dist/main",
-		"heroku-postbuild": "yarn build && yarn gen",
+		"heroku-postbuild": "npm run build && npm run gen",
 		"lint": "tslint -p tsconfig.json -c tslint.json",
 		"test": "jest",
 		"test:watch": "jest --watch",
