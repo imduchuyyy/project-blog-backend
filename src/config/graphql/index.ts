@@ -1,12 +1,11 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { GqlOptionsFactory, GqlModuleOptions } from "@nestjs/graphql";
-import { AuthenticationError, ForbiddenError } from 'apollo-server-core'
+import { GqlOptionsFactory, GqlModuleOptions } from "@nestjs/graphql"
 import { PubSub } from 'graphql-subscriptions'
 import { getMongoRepository } from 'typeorm'
 import { MemcachedCache } from 'apollo-server-cache-memcached'
 
 import { UserEntity } from '@models'
-import schemaDirectives from './schemaDerectives'
+import schemaDirectives from './schemaDirectives'
 import { verifyToken } from '@auth'
 import { END_POINT, ACCESS_TOKEN } from "@environments";
 
@@ -18,7 +17,7 @@ export class GraphqlService implements GqlOptionsFactory {
     return {
       typePaths: ['./**/*.graphql'],
       playground: true,
-      // debug: true,
+      debug: true,
       schemaDirectives,
       formatError: err => {
         return {
@@ -30,21 +29,11 @@ export class GraphqlService implements GqlOptionsFactory {
       },
       tracing: true,
       persistedQueries: {
-				cache: new MemcachedCache(
-					['memcached-server-1', 'memcached-server-2', 'memcached-server-3'],
-					{ retries: 10, retry: 10000 } // Options
-				)
-			},
-      onHealthCheck: () => {
-				return new Promise((resolve, reject) => {
-					// Replace the `true` in this conditional with more specific checks!
-					if (true) {
-						resolve()
-					} else {
-						reject()
-					}
-				})
-			},
+        cache: new MemcachedCache(
+          ['memcached-server-1', 'memcached-server-2', 'memcached-server-3'],
+          { retries: 10, retry: 10000 } // Options
+        )
+      },
       formatResponse: res => {
         return res
       },
@@ -104,7 +93,7 @@ export class GraphqlService implements GqlOptionsFactory {
             )
 
             return { currentUser }
-          } 
+          }
           return false
         },
         onDisconnect: async (webSocket, context) => {
@@ -122,7 +111,7 @@ export class GraphqlService implements GqlOptionsFactory {
               {
                 upsert: true
               }
-            ) 
+            )
           }
         }
       }

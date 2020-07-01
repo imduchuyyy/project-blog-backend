@@ -33,6 +33,17 @@ export class UserResolver {
 	}
 
 	@Query()
+	async getUser(_id: string): Promise<UserEntity> {
+		try {
+			return await getMongoRepository(UserEntity).findOne(
+				_id
+			)
+		} catch (error) {
+			throw new ApolloError(error)
+		}
+	}
+
+	@Query()
 	async getCurrentUser(@Context('currentUser') currentUser: UserEntity): Promise<User> {
 		return currentUser
 	}

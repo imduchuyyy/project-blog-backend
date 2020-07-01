@@ -6,6 +6,7 @@ export declare class UserResolver {
     constructor(dashboardService: DashboardService);
     hello(): Promise<string>;
     getUsers(): Promise<UserEntity[]>;
+    getUser(_id: string): Promise<UserEntity>;
     getCurrentUser(currentUser: UserEntity): Promise<User>;
     createUser(input: CreateUserInput, pubsub: any, currentUser: UserEntity): Promise<UserEntity>;
     login(input: LoginRequest): Promise<LoginResponse>;

@@ -66,6 +66,8 @@ export abstract class IQuery {
 
     abstract getUsers(): User[] | Promise<User[]>;
 
+    abstract getUser(_id?: string): User | Promise<User>;
+
     abstract getCurrentUser(): User | Promise<User>;
 }
 

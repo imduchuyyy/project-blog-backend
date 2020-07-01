@@ -53,6 +53,7 @@ type LoginResponse {
 type Query {
 	hello: String
 	getUsers: [User] @checkRoles(roles: ["ADMIN", "SUPERADMIN"])
+	getUser(_id: String): User @isAuthenticated
 	getCurrentUser: User @isAuthenticated
 }
 

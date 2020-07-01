@@ -8,7 +8,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
 
 module.exports = {
   entry: ['webpack/hot/poll?100', './src/main.ts'],
-  // watch: true,
+  watch: true,
   target: 'node',
   externals: [
     nodeExternals({
@@ -39,20 +39,20 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.WatchIgnorePlugin([/\.js$/, /\.d\.ts$/]),
     // new StartServerPlugin({ name: 'main.js' }),
-    // new BundleAnalyzerPlugin({
-    //   analyzerMode: 'static',
-    //   analyzerHost: '127.0.0.1',
-    //   analyzerPort: '8888',
-    //   reportFilename: 'report.html',
-    //   openAnalyzer: false,
-    //   generateStatsFile: false,
-    //   statsFilename: 'stats.json'
-    // }),
-    // new webpack.BannerPlugin({
-    //   banner: 'require("source-map-support").install();',
-    //   raw: true,
-    //   entryOnly: false
-    // }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      analyzerHost: '127.0.0.1',
+      analyzerPort: '8888',
+      reportFilename: 'report.html',
+      openAnalyzer: false,
+      generateStatsFile: false,
+      statsFilename: 'stats.json'
+    }),
+    new webpack.BannerPlugin({
+      banner: 'require("source-map-support").install();',
+      raw: true,
+      entryOnly: false
+    }),
     new Webpackbar()
   ],
   optimization: {

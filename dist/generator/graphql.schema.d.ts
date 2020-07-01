@@ -46,6 +46,7 @@ export declare abstract class IQuery {
     abstract getPosts(): Post[] | Promise<Post[]>;
     abstract hello(): string | Promise<string>;
     abstract getUsers(): User[] | Promise<User[]>;
+    abstract getUser(_id?: string): User | Promise<User>;
     abstract getCurrentUser(): User | Promise<User>;
 }
 export declare abstract class ISubscription {
