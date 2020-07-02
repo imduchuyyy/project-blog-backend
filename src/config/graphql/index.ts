@@ -2,7 +2,6 @@ import { Injectable, Logger } from "@nestjs/common";
 import { GqlOptionsFactory, GqlModuleOptions } from "@nestjs/graphql"
 import { PubSub } from 'graphql-subscriptions'
 import { getMongoRepository } from 'typeorm'
-import { MemcachedCache } from 'apollo-server-cache-memcached'
 
 import { UserEntity } from '@models'
 import schemaDirectives from './schemaDirectives'
@@ -27,16 +26,12 @@ export class GraphqlService implements GqlOptionsFactory {
           path: err.path
         }
       },
+      cacheControl: {
+        defaultMaxAge: 5,
+        stripFormattedExtensions: false,
+        calculateHttpHeaders: false
+      },
       tracing: true,
-      persistedQueries: {
-        cache: new MemcachedCache(
-          ['memcached-server-1', 'memcached-server-2', 'memcached-server-3'],
-          { retries: 10, retry: 10000 } // Options
-        )
-      },
-      formatResponse: res => {
-        return res
-      },
       path: `/${END_POINT}`,
       bodyParserConfig: {
         limit: '50mb'
@@ -46,6 +41,7 @@ export class GraphqlService implements GqlOptionsFactory {
         maxFileSize: 20, // 20mb
         maxFiles: 5
       },
+      cors: true,
       installSubscriptionHandlers: true,
       context: async ({ req, res, connection }) => {
         if (connection) {

@@ -16,7 +16,6 @@ import * as moment from 'moment'
 export class DashboardResolver {
 
 	constructor(private readonly dashboardService: DashboardService) { }
-
 	@Subscription('dashboardUpdated', {
 		filter: () => {
 			return true

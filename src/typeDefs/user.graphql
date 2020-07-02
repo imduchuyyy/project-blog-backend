@@ -44,6 +44,8 @@ input UpdateUserInput {
 	email: String
 	gender: String
 	fullName: String
+	avatar: String
+	dayOfBirth: Float
 }
 
 type LoginResponse {
@@ -55,6 +57,7 @@ type Query {
 	getUsers: [User] @checkRoles(roles: ["ADMIN", "SUPERADMIN"])
 	getUser(_id: String): User @isAuthenticated
 	getCurrentUser: User @isAuthenticated
+	searchUser(keyword: String): [User] @isAuthenticated
 }
 
 type Mutation {

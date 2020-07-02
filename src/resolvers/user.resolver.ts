@@ -20,7 +20,7 @@ export class UserResolver {
 
 	@Query()
 	async hello(): Promise<string> {
-		return 'hello world	'
+		return 'hello world'
 	}
 
 	@Query()
@@ -46,6 +46,33 @@ export class UserResolver {
 	@Query()
 	async getCurrentUser(@Context('currentUser') currentUser: UserEntity): Promise<User> {
 		return currentUser
+	}
+
+	@Query()
+	async searchUser(@Args('keyword') keyword: string): Promise<User[]> {
+		try {
+			const regex = new RegExp(keyword, 'si')
+			return await getMongoRepository(UserEntity).aggregate([
+				{
+					$match: {
+						$or: [
+							{
+								username: {
+									$regex: regex
+								}
+							},
+							{
+								fullName: {
+									$regex: regex
+								}
+							}
+						]
+					}
+				}
+			]).toArray()
+		} catch (error) {
+			throw new ApolloError(error)
+		}
 	}
 
 	@Mutation()
