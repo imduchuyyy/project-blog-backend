@@ -8,7 +8,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
 
 module.exports = {
   entry: ['webpack/hot/poll?100', './src/main.ts'],
-  watch: true,
+  watch: !process.env.NODE_ENV,
   target: 'node',
   externals: [
     nodeExternals({

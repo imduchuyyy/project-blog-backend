@@ -30,8 +30,15 @@ input CommentInput {
 	description: String
 }
 
+type PersonalProfile {
+	creator: User
+	posts: [Post]
+}
+
 type Query {
-	getPosts: [Post]
+	getPosts: [Post] @isAuthenticated
+	getPostsByCreator(idCreator: String): [Post] @isAuthenticated
+	getPersonalProfile(username: String): PersonalProfile @isAuthenticated
 }
 
 type Mutation {

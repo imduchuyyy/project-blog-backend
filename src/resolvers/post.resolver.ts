@@ -1,5 +1,5 @@
 import { DashboardService } from './service/dashboard.service';
-import { Post, PostInput, CommentInput, Comment } from './../generator/graphql.schema';
+import { Post, PostInput, CommentInput, Comment, PersonalProfile } from './../generator/graphql.schema';
 import {
   Resolver,
   Query,
@@ -66,6 +66,30 @@ export class PostResolver {
       })
 
       return response
+    } catch (error) {
+      throw new ApolloError(error)
+    }
+  }
+
+  @Query()
+  async getPersonalProfile(@Args('username') username): Promise<PersonalProfile> {
+    try {
+      const creator = await getMongoRepository(UserEntity).findOne({
+        username
+      })
+
+      if (!creator) {
+        throw new ApolloError('Not found: User', '404')
+      }
+
+      const posts = await getMongoRepository(PostEntity).find({
+        idCreator: creator._id
+      })
+
+      return {
+        posts,
+        creator
+      }
     } catch (error) {
       throw new ApolloError(error)
     }

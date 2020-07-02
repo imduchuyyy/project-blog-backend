@@ -5,7 +5,7 @@
 	"author": "Bùi Đức Huy",
 	"license": "MIT",
 	"scripts": {
-		"build": "rimraf dist && tsc -p tsconfig.build.json",
+		"build": "npm run webpack",
 		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
 		"start": "nest start",
 		"gen": "ts-node src/generator/generate-typings.ts",
@@ -16,7 +16,7 @@
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:cov": "jest --coverage",
-		"heroku-postbuild": "npm run webpack",
+		"heroku-postbuild": "NODE_ENV=production npm run webpack && npm run gen",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
 		"webpack": "rimraf dist && webpack --config webpack.config.js ",
 		"start:hmr": "node dist/main.js",
