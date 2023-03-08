@@ -26,7 +26,7 @@
 		"@apollo/federation": "^0.14.1",
 		"@apollo/gateway": "^0.14.1",
 		"@nestjs/common": "^6.7.2",
-		"@nestjs/core": "^6.7.2",
+		"@nestjs/core": "^9.0.5",
 		"@nestjs/graphql": "^7.2.4",
 		"@nestjs/platform-express": "^6.11.11",
 		"@nestjs/schedule": "^0.3.0",
